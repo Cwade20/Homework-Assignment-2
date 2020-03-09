@@ -38,7 +38,7 @@ df = pd.read_csv("/Users/Charles/Desktop/GMU/GBUS738/UniversalBank.csv", delimit
 sns.scatterplot('Age', 'Income',hue='Personal Loan', data=df ).set(title = 'Acceptance of Personal Loans', xlabel = 'Age in Years', ylabel = 'Income in $1,000s')
 ```
 
->Based on the information from UniversalBank, and our scatterplot, it does appear there is a stronger correlation between Income and loan acceptance, as compared to age and loan acceptance. It does appear both Age and Income are independent of each other, and one does not appear to influence the other variable. 
+>Based on the information from UniversalBank, and our scatterplot, it does appear there is a stronger correlation between Income and loan acceptance, as compared to age and loan acceptance. Based on visually looking at our scatter plot, we can see that plot points listed in orange represent an individual taking a given loan, where blue represents those not taking the loan. While we can see there is a spread across all age groups of those taking or not taking loans, we can see a stronger correlation between income and those who accepted loans. It does appear that those individuals who have an income of >$100,000, are more strongly correlated with loan acceptance, as compared to those who have an income of <$100,000. Based on the graph, those who have an income sub $100,000, had very few loans, where as the majority of loans were above the income range of $100,000. 
 
 ## 2. Build a logistic regression model to classify customers into those who are likely to accept
 personal loan offer and those who are not. Use all the available variables as predictors except ID
