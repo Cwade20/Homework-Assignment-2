@@ -23,9 +23,7 @@ Use the dataset to answer the following questions. (Hint: In the dataset, since 
 attribute names is not the first row of the worksheet, inspect your dataset, set your dataframes correctly,
 or adjust your data set.)
 
-## 1. Create a scatterplot of Age vs. Income, using color to differentiate customers who accepted the
-loan and those who did not. Which variable (i.e., age or income) appears to be potentially more
-useful in classifying customers? Explain.
+## 1. Create a scatterplot of Age vs. Income, using color to differentiate customers who accepted the loan and those who did not. Which variable (i.e., age or income) appears to be potentially more useful in classifying customers? Explain.
 
 ![image](https://user-images.githubusercontent.com/61456930/76241236-09650880-620b-11ea-8fbc-1aab18adbdc4.png)
 
