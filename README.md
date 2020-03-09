@@ -28,6 +28,19 @@ or adjust your data set.)
 loan and those who did not. Which variable (i.e., age or income) appears to be potentially more
 useful in classifying customers? Explain.
 
+![image](https://user-images.githubusercontent.com/61456930/76241236-09650880-620b-11ea-8fbc-1aab18adbdc4.png)
+
+```python
+import pandas as pd
+import seaborn as sns
+#imports the graphing program seaborn that i will be using
+df = pd.read_csv("/Users/Charles/Desktop/GMU/GBUS738/UniversalBank.csv", delimiter="," , header = 3, skiprows=0)
+#header is on the 4th row of my csv file, counting this goes row 0, row 1, row 2, and finally row 3. This means for header we set it = to 3
+sns.scatterplot('Age', 'Income',hue='Personal Loan', data=df ).set(title = 'Acceptance of Personal Loans', xlabel = 'Age in Years', ylabel = 'Income in $1,000s')
+```
+
+>Based on the information from UniversalBank, and our scatterplot, it does appear there is a strong correlation between income and loan acceptance, as compared to age and loan acceptance. 
+
 2. Build a logistic regression model to classify customers into those who are likely to accept
 personal loan offer and those who are not. Use all the available variables as predictors except ID
 and ZIP Code. (Hint: Since the Logistic Regression operator expects binominal or polynominal
