@@ -1,5 +1,4 @@
 # Homework-Assignment-2
-Homework Assignment 2
 
 Task - Case: Acceptance of Loan Offers
 Universal Bank is a relatively young bank growing rapidly in terms of overall customer acquisition. The
@@ -24,7 +23,7 @@ Use the dataset to answer the following questions. (Hint: In the dataset, since 
 attribute names is not the first row of the worksheet, inspect your dataset, set your dataframes correctly,
 or adjust your data set.)
 
-1. Create a scatterplot of Age vs. Income, using color to differentiate customers who accepted the
+## 1. Create a scatterplot of Age vs. Income, using color to differentiate customers who accepted the
 loan and those who did not. Which variable (i.e., age or income) appears to be potentially more
 useful in classifying customers? Explain.
 
@@ -39,9 +38,9 @@ df = pd.read_csv("/Users/Charles/Desktop/GMU/GBUS738/UniversalBank.csv", delimit
 sns.scatterplot('Age', 'Income',hue='Personal Loan', data=df ).set(title = 'Acceptance of Personal Loans', xlabel = 'Age in Years', ylabel = 'Income in $1,000s')
 ```
 
->Based on the information from UniversalBank, and our scatterplot, it does appear there is a strong correlation between income and loan acceptance, as compared to age and loan acceptance. 
+>Based on the information from UniversalBank, and our scatterplot, it does appear there is a stronger correlation between Income and loan acceptance, as compared to age and loan acceptance. It does appear both Age and Income are independent of each other, and one does not appear to influence the other variable. 
 
-2. Build a logistic regression model to classify customers into those who are likely to accept
+## 2. Build a logistic regression model to classify customers into those who are likely to accept
 personal loan offer and those who are not. Use all the available variables as predictors except ID
 and ZIP Code. (Hint: Since the Logistic Regression operator expects binominal or polynominal
 target variables, if the target variable is numeric, you will have to convert it to binominal by using
@@ -63,7 +62,7 @@ of loan acceptance, how many of them would potentially accept a personal loan of
  - e. What percentage of customers who accepted the loan were incorrectly classified by the
 model in Part (2)?
 
-3. Suppose the bank is interested in improving the accuracy of identifying the potential positive
+## 3. Suppose the bank is interested in improving the accuracy of identifying the potential positive
 responders, i.e., those who would accept the loan offer. Create a new process to develop a
 logistic regression model to classify customers into those who are likely to accept personal loan
 and those who are not using all the available variables—except ID and ZIP Code — as predictors.
@@ -72,6 +71,6 @@ the positive responders is at least 70%. Compare the predictive accuracy of this
 with that of the model developed in Part (2). (Again, try to be analytical instead of just noting the
 numbers)
 
-4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other
+## 4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other
 business problems where logistic regressions can be utilized for predictive modeling. For each
 problem, identify a target variable and four possible predictor variables.
