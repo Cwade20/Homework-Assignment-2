@@ -56,15 +56,6 @@ of loan acceptance, how many of them would potentially accept a personal loan of
  - e. What percentage of customers who accepted the loan were incorrectly classified by the
 model in Part (2)?
 
-## 3. Suppose the bank is interested in improving the accuracy of identifying the potential positive
-responders, i.e., those who would accept the loan offer. Create a new process to develop a
-logistic regression model to classify customers into those who are likely to accept personal loan
-and those who are not using all the available variables—except ID and ZIP Code — as predictors.
-However, this time modify the cutoff probability in such a way that the accuracy of identifying
-the positive responders is at least 70%. Compare the predictive accuracy of this revised model
-with that of the model developed in Part (2). (Again, try to be analytical instead of just noting the
-numbers)
+## 3. Suppose the bank is interested in improving the accuracy of identifying the potential positive responders, i.e., those who would accept the loan offer. Create a new process to develop a logistic regression model to classify customers into those who are likely to accept personal loan and those who are not using all the available variables—except ID and ZIP Code — as predictors. However, this time modify the cutoff probability in such a way that the accuracy of identifying the positive responders is at least 70%. Compare the predictive accuracy of this revised model with that of the model developed in Part (2). (Again, try to be analytical instead of just noting the numbers)
 
-## 4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other
-business problems where logistic regressions can be utilized for predictive modeling. For each
-problem, identify a target variable and four possible predictor variables.
+## 4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other business problems where logistic regressions can be utilized for predictive modeling. For each problem, identify a target variable and four possible predictor variables.
