@@ -29,11 +29,38 @@ or adjust your data set.)
 
 ```python
 import pandas as pd
-import seaborn as sns
-#imports the graphing program seaborn that i will be using
-df = pd.read_csv("/Users/Charles/Desktop/GMU/GBUS738/UniversalBank.csv", delimiter="," , header = 3, skiprows=0)
-#header is on the 4th row of my csv file, counting this goes row 0, row 1, row 2, and finally row 3. This means for header we set it = to 3
-sns.scatterplot('Age', 'Income',hue='Personal Loan', data=df ).set(title = 'Acceptance of Personal Loans', xlabel = 'Age in Years', ylabel = 'Income in $1,000s')
+from matplotlib import pyplot as plt
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+#Standard import functions for pythond coding
+
+xls = pd.ExcelFile("/Users/Charles/Desktop/GMU/GBUS738/UniversalBank.xlsx")
+df = pd.read_excel(xls, 'Data')
+#Imports and reads our data files, also denotes file as df / xls for remainder of code
+
+len(df[df['Personal Loan']==1])
+df1=df[df['Personal Loan']==0]
+df2=df[df['Personal Loan']==1]
+#Denotes those who did NOT accept a personal loan as a 0, and those who did as a 1. Utilized for sorting later
+
+plt.scatter('Age','Income',label='Loan not accepted',data=df1)
+plt.scatter('Age','Income',label='Loan accepted',data=df2)
+#Plots 2 independent charts on 1 graph. 1 chart for those who did not accept (0 as denoted in line 44), and those who did (1 in line 45)
+
+plt.xlabel('Age in years')
+plt.ylabel('Income in $000')
+#adds X and Y axis labels
+
+plt.title('Loan Acceptance classification based on age and income')
+#adds plot title 
+
+plt.legend()
+#adds legend
+
+plt.show()
+#returns plot 
 ```
 
 >Based on the information from UniversalBank, and our scatterplot, it does appear there is a stronger correlation between Income and loan acceptance, as compared to age and loan acceptance. Based on visually looking at our scatter plot, we can see that plot points listed in orange represent an individual taking a given loan, where blue represents those not taking the loan. While we can see there is a spread across all age groups of those taking or not taking loans, we can see a stronger correlation between income and those who accepted loans. It does appear that those individuals who have an income of >$100,000, are more strongly correlated with loan acceptance, as compared to those who have an income of <$100,000. Based on the graph, those who have an income sub $100,000, had very few loans, where as the majority of loans were above the income range of $100,000. 
