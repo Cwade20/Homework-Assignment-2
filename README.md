@@ -72,8 +72,8 @@ using appropriate metrics.
 
 ```python
 
-x=df.drop(['ID'],axis =1)
-x=df.drop(['ZIP Code'],axis =1)
+x=df[['Age','Experience','Income', 'Family','CCAvg','Education','Mortgage','Securities Account','CD Account','Online','CreditCard']].values
+y=df['Personal Loan'].values
 
 y=df['Personal Loan']
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.7)
@@ -87,42 +87,43 @@ for i in y_test:
     else:
         pass
 print(x)
-tn, fp, fn, tp = confusion_matrix(np.array(y_test), np.array(y_pred), labels=[0,1]).ravel()
+#tn, fp, fn, tp = confusion_matrix(np.array(y_test), np.array(y_pred), labels=[0,1]).ravel()
 
-print(tn)
-print(fp)
-print(fn)
-print(tp)
-score=accuracy_score(y_test, y_pred)
-print(score)
+#print(tn)
+#print(fp)
+#print(fn)
+#print(tp)
+#score=accuracy_score(y_test, y_pred)
+#print(score)
+#we can remove 90-98 and just use line 99 for simpler code? thoughts?
+print(confusion_matrix(y_true=y_test,y_pred=y_pred))
+
 ```
 
 > Confusion Matrix
 
->tn =3167
->fp =0
->fn =2
->tp =331
+>[[1354   18]                                                                                                                           
+ [  53   75]]
 
 
 >Utilizing the results from our Confusion Matrix, we can generate an overall accuracy report, as well as accuracy of each class:
 
 ```python
-accuracy=(3167+331)/(3167+0+2+331)
+accuracy=(1353+75)/(1354+18+53+75)
 print(accuracy)
 
-accuracy_class0=3167/(3167+0)
+accuracy_class0=1354/(1354+19)
 print(accuracy_class0)
 
-accuracy_class1=331/(2+331)
+accuracy_class1=75/(75+53)
 print(accuracy_class1)
 ```
 
->Overall Accuracy = 0.9994285714285714
+>Overall Accuracy = 95%
 
->Accuracy of predicted class 0 = 1.0
+>Accuracy of predicted class 0 = 99%
 
->Accuracy of predicted class 1 = 0.993993993993994
+>Accuracy of predicted class 1 = 60%
 
 
  - b. What was the default cutoff probability used to generate the classifications?
@@ -194,40 +195,42 @@ print(Accepted)
 
  - e. What percentage of customers who accepted the loan were incorrectly classified by the
 model in Part (2)?
->.1
+```python
+Incorrect_classified=53/(53+75)
+print(Incorrect_classified)
+```
+>41%
 
 
 ## 3. Suppose the bank is interested in improving the accuracy of identifying the potential positive responders, i.e., those who would accept the loan offer. Create a new process to develop a logistic regression model to classify customers into those who are likely to accept personal loan and those who are not using all the available variables—except ID and ZIP Code — as predictors. However, this time modify the cutoff probability in such a way that the accuracy of identifying the positive responders is at least 70%. Compare the predictive accuracy of this revised model with that of the model developed in Part (2). (Again, try to be analytical instead of just noting the numbers)
 
 ```python
 
-x1=df1.drop(['ID'],axis =1)
-x1=df1.drop(['ZIP Code'],axis =1)
-#drops ID and Zip code from test
+y_proba1=clf.predict_proba(x_test)
 
-decisions = (model.predict_proba(x_test)[:,1] >= 0.3).astype(int)
-#gives smaller cutoff, vs. typical .5
+probability1=y_proba1[:,1]
+probability1=probability1.reshape(-1,1)
 
-tn, fp, fn, tp = confusion_matrix(np.array(y_test), decisions, labels=[0,1]).ravel()
-#converts to string
+predicted=[1 if i>0.3 else 0 for i in probability1]
+predicted=np.asarray(predicted)
+predicted=predicted.reshape(-1,1)
 
-print(tn)
-print(fp)
-print(fn)
-print(tp)
-score1=accuracy_score(y_test, decisions)
-print(score1)
+y_test=y_test.reshape(-1,1)
+
+probability_test1=np.append(probability,y_test, axis=1)
+probability_test1=np.append(probability_test1,predicted,axis=1)
+
+probability_test1=probability_test1[probability_test1[:, 0].argsort()[::-1]]
+
+positive = probability_test1[probability_test1[:,1]==1, :]
+
+true=(positive[:,1]==positive[:,2]).sum()
+print(true/positive.shape[0])
 ```
 
->tn = 3178
+>75%
 
->fp = 0
-
->fn = 0
-
->tp = 322
-
->Accuracy = 100%
+>When we adjusted the test cutoff in line 214, to .3 or 70% we have increased our models accuracy by 15%, up from 60% to 75%.
 
 
 ## 4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other business problems where logistic regressions can be utilized for predictive modeling. For each problem, identify a target variable and four possible predictor variables.
