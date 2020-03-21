@@ -139,17 +139,17 @@ random_subset = df.sample(n=100)
 
 random_subset=pd.DataFrame(random_subset)
 #puts name to random subset 
-len(random_subset[random_subset['Personal Loan']==1])
-df1=random_subset[random_subset['Personal Loan']==1]
 
-x1=df1.drop(['ID'],axis =1)
-x1=df1.drop(['ZIP Code'],axis =1)
+x1=random_subset.drop(['ID'],axis =1)
+x1=x1.drop(['ZIP Code'],axis =1)
+x1=x1.drop(['Personal Loan'], axis =1)
 #calls to drop ID and Zip code from the column
 
-y1=df1['Personal Loan']
+y1=random_subset['Personal Loan']
+#calls for random sample of our indepent variable 
+
 y1_pred=mfit.predict(x1)
 print(confusion_matrix(y1, y1_pred))
-
 
 ```
 >7 Total people would accept the loan offer
