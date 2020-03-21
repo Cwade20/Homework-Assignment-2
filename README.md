@@ -167,7 +167,35 @@ model in Part (2)?
 
 ## 3. Suppose the bank is interested in improving the accuracy of identifying the potential positive responders, i.e., those who would accept the loan offer. Create a new process to develop a logistic regression model to classify customers into those who are likely to accept personal loan and those who are not using all the available variables—except ID and ZIP Code — as predictors. However, this time modify the cutoff probability in such a way that the accuracy of identifying the positive responders is at least 70%. Compare the predictive accuracy of this revised model with that of the model developed in Part (2). (Again, try to be analytical instead of just noting the numbers)
 
+```python
 
+x1=df1.drop(['ID'],axis =1)
+x1=df1.drop(['ZIP Code'],axis =1)
+#drops ID and Zip code from test
+
+decisions = (model.predict_proba(x_test)[:,1] >= 0.3).astype(int)
+#gives smaller cutoff, vs. typical .5
+
+tn, fp, fn, tp = confusion_matrix(np.array(y_test), decisions, labels=[0,1]).ravel()
+#converts to string
+
+print(tn)
+print(fp)
+print(fn)
+print(tp)
+score1=accuracy_score(y_test, decisions)
+print(score1)
+```
+
+>tn = 3178
+
+>fp = 0
+
+>fn = 0
+
+>tp = 322
+
+>Accuracy = 100%
 
 
 ## 4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other business problems where logistic regressions can be utilized for predictive modeling. For each problem, identify a target variable and four possible predictor variables.
