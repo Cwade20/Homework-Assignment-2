@@ -158,6 +158,38 @@ print(confusion_matrix(y1, y1_pred))
 of loan acceptance, how many of them would potentially accept a personal loan offer?
 (Hint: Revise the process from Part (2) to generate a lift chart.)
 
+```python
+clf = LogisticRegression(
+    penalty='l2', dual=False, 
+    tol=0.0001, C=1.0, fit_intercept=True, intercept_scaling=1, 
+    class_weight=None, random_state=None, solver='lbfgs',
+    max_iter=10000, multi_class='auto', verbose=0, 
+    warm_start=False, n_jobs=None, l1_ratio=None)
+
+
+x=df[['Age','Experience','Income', 'Family','CCAvg','Education','Mortgage','Securities Account','CD Account','Online','CreditCard']].values
+y=df['Personal Loan'].values
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3,train_size=0.7,random_state=0)
+clf.fit(x_train,y_train)
+
+y_proba=clf.predict_proba(x_test)
+print(y_proba)
+
+probability=y_proba[:,1]
+probability=probability.reshape(-1,1)
+
+y_test=y_test.reshape(-1,1)
+
+probability_test=np.append(probability,y_test,axis=1)
+probability_test=probability_test[probability_test[:, 0].argsort()[::-1]]
+probability_test=probability_test[0:100,:]
+print(probability_test)
+
+Accepted=probability_test[:,1].sum()
+print(Accepted)
+```
+>79%
 
 
  - e. What percentage of customers who accepted the loan were incorrectly classified by the
