@@ -70,20 +70,105 @@ plt.show()
  - a. Evaluate the overall predictive accuracy of the model as well as the accuracy of each class
 using appropriate metrics.
 
+```python
+
+x=df.drop(['ID'],axis =1)
+x=df.drop(['ZIP Code'],axis =1)
+
+y=df['Personal Loan']
+x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.7)
+model = LogisticRegression()
+mfit=model.fit(x_train, y_train)
+y_pred=mfit.predict(x_test)
+x=0
+for i in y_test:
+    if i ==0:
+        x=x+1
+    else:
+        pass
+print(x)
+tn, fp, fn, tp = confusion_matrix(np.array(y_test), np.array(y_pred), labels=[0,1]).ravel()
+
+print(tn)
+print(fp)
+print(fn)
+print(tp)
+score=accuracy_score(y_test, y_pred)
+print(score)
+```
+
+> Confusion Matrix
+
+>tn =3167
+>fp =0
+>fn =2
+>tp =331
+
+
+>Utilizing the results from our Confusion Matrix, we can generate an overall accuracy report, as well as accuracy of each class:
+
+```python
+accuracy=(3167+331)/(3167+0+2+331)
+print(accuracy)
+
+accuracy_class0=3167/(3167+0)
+print(accuracy_class0)
+
+accuracy_class1=331/(2+331)
+print(accuracy_class1)
+```
+
+>Overall Accuracy = 0.9994285714285714
+
+>Accuracy of predicted class 0 = 1.0
+
+>Accuracy of predicted class 1 = 0.993993993993994
+
+
  - b. What was the default cutoff probability used to generate the classifications?
+ >.5
+ 
 
 -  c. Assuming that the dataset contains a representative sample of the liability customers of
 the bank, if you target 100 customers randomly (i.e., without the aid of any predictive
 model), how many of them would potentially accept a personal loan offer?
+```python
+random_subset = df.sample(n=100)
+#calls for a random sample of 100
+
+random_subset=pd.DataFrame(random_subset)
+#puts name to random subset 
+len(random_subset[random_subset['Personal Loan']==1])
+df1=random_subset[random_subset['Personal Loan']==1]
+
+x1=df1.drop(['ID'],axis =1)
+x1=df1.drop(['ZIP Code'],axis =1)
+#calls to drop ID and Zip code from the column
+
+y1=df1['Personal Loan']
+y1_pred=mfit.predict(x1)
+print(confusion_matrix(y1, y1_pred))
+
+
+```
+>7 Total people would accept the loan offer
+
 
 -  d. Now if you use your model in Part (2) to select 100 customers with the highest probability
 of loan acceptance, how many of them would potentially accept a personal loan offer?
 (Hint: Revise the process from Part (2) to generate a lift chart.)
 
+
+
  - e. What percentage of customers who accepted the loan were incorrectly classified by the
 model in Part (2)?
+>.1
+
 
 ## 3. Suppose the bank is interested in improving the accuracy of identifying the potential positive responders, i.e., those who would accept the loan offer. Create a new process to develop a logistic regression model to classify customers into those who are likely to accept personal loan and those who are not using all the available variables—except ID and ZIP Code — as predictors. However, this time modify the cutoff probability in such a way that the accuracy of identifying the positive responders is at least 70%. Compare the predictive accuracy of this revised model with that of the model developed in Part (2). (Again, try to be analytical instead of just noting the numbers)
+
+
+
 
 ## 4. Aside from the problem of predicting the likelihood of accepting loan offers, think of two other business problems where logistic regressions can be utilized for predictive modeling. For each problem, identify a target variable and four possible predictor variables.
 >Logistic regression could be utilized in many busniess applications. One example of where Logistic regression could be utilized is in the auto insurance industry. The target variable would be the monthly premium for a given consumer. Predictor variables could include: Prior tickets, Age, Credit Score, Gender, Vehical Price, Time with company, or Average distance driven per year. Another example of where logistic regression could be utilized is in predicting the probability of a presidential election. The predictor variables in this case could include: Incombant party, Amount of money spent on election, Average hours per week spent campainging, or Amount of money spent on negative advertisement. While both of these models are very different, both examples could be utilized for logistic regression modeling. 
